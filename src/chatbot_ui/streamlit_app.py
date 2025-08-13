@@ -12,7 +12,6 @@ qdrant_client = QdrantClient(
     url=f"http://{config.QDRANT_URL}:6333"
 )
 
-
 ## Lets create a sidebar with a dropdown for the model list and providers
 with st.sidebar:
     st.title("Settings")
@@ -36,7 +35,7 @@ if st.session_state.provider == "OpenAI":
 elif st.session_state.provider == "Groq":
     client = Groq(api_key=config.GROQ_API_KEY)
 else:
-    client = genai.Client(api_key=config.GEMINI_API_KEY)
+    client = genai.Client(api_key=config.GOOGLE_API_KEY)
 
 
 def run_llm(client, messages, max_tokens=500):
@@ -70,4 +69,4 @@ if prompt := st.chat_input("Hello! How can I assist you today?"):
         # output = run_llm(client, st.session_state.messages)
         output = rag_pipeline(prompt, qdrant_client)
         st.write(output["answer"])
-    st.session_state.messages.append({"role": "assistant", "content": output["answer"]})
+    st.session_state.messages.append({"role": "assistant", "content": output})

@@ -9,3 +9,7 @@ run-docker-streamlit:
 
 run-docker-compose:
 	docker compose up --build 
+
+run-evals:
+	uv sync
+	PYTHONPATH=${PWD}/src:$$PYTHONPATH:${PWD} uv run --env-file .env python -m evals.eval_retriever
